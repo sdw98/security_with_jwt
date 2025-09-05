@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: jwt-token-demo
+
+# JWT ??
+jwt:
+  secret: "myVeryLongSecretKeyForJWTTokenGenerationAndValidationThatShouldBeAtLeast256BitsLong"
+  expiration: 3600 # 1?? (? ??)
+
+# ?? ??
+logging:
+  level:
+    com.example.jwt: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+
+# ?? ??
+server:
+  port: 8080
