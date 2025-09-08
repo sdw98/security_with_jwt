@@ -65,8 +65,8 @@ public class JwtTokenService {
                 .claim("username", user.getUsername())
                 .claim("authorities", authorities)
                 .claim("roles", user.getRoles())
-                .claim("displayName", user.getDisplayName())
-                .claim("email", user.getEmail())
+                .claim("displayName", user.getDisplayName() != null ? user.getDisplayName() : "")
+                .claim("email", user.getEmail()  != null ? user.getEmail() : "")
                 .claim("tokenType", "access")
                 .build();
 

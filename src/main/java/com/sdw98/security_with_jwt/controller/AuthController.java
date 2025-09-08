@@ -121,4 +121,31 @@ public class AuthController {
                     ));
         }
     }
+
+    @PostMapping("/generate-test-token")
+    public ResponseEntity<Map<String, Object>> generateTestToken(@RequestBody Map<String, Object> request) {
+        String username = (String) request.get("username");
+        @SuppressWarnings("unchecked")
+        List<String> roles = (List<String>)  request.get("roles");
+
+        if (username == null || username.trim().isEmpty()) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "사용자명이 필요합니다"));
+        }
+
+        if (roles == null || roles.isEmpty()) {
+            roles = List.of("USER");
+        }
+
+        String token = jwtTokenService.generateTokenForUser(username, roles);
+
+        return ResponseEntity.ok(Map.of(
+                "token", token,
+                "tokenType", "Bearer",
+                "expiresIn", jwtTokenService.getTokenExpiration(),
+                "username", username,
+                "roles", roles,
+                "timestamp", Instant.now()
+        ));
+    }
 }
